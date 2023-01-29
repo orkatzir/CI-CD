@@ -8,7 +8,7 @@ jobs:
     name: Build and Push to GCP
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: testimage
+      IMAGE_NAME: mycicd
       PROJECT_ID: third-campus-375011
     steps:
     - name: Checkout
@@ -45,7 +45,7 @@ jobs:
     - name: Push Docker Image to Artifact Registry
       env:
         GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
-      run: |-
+        run: |-
         docker tag $IMAGE_NAME:latest us-west2-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:latest
         docker tag $IMAGE_NAME:latest us-west2-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:$GIT_TAG
         docker push us-west2-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:latest
